@@ -24,14 +24,13 @@ import android.widget.TextView;
 import java.util.List;
 
 public class MainActivity extends Activity {
+    public static final int NOTIFICATION_ID = 1;
     private Button mButton1;
     private Button mButton2;
     private Button mButton3;
     private Button mButton4;
     private TextView mTextView;
     private Context mContext;
-
-    public static final int NOTIFICATION_ID = 1;
     private Thread thread;
 
     @Override
@@ -174,15 +173,15 @@ public class MainActivity extends Activity {
     public boolean isRunningForeground(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
-    //    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
             ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
             String currentPackageName = cn.getPackageName();
 
             showRunningTaskInfo(am.getRunningTasks(20));
             return !TextUtils.isEmpty(currentPackageName) && currentPackageName.equals(context.getPackageName());
-//        } else {
-//            return isAppOnForeground(context);
-//        }
+        } else {
+            return isAppOnForeground(context);
+        }
 
     }
 
