@@ -6,6 +6,17 @@
     android:orientation="vertical">
 
 
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启动另外一个Activity" />
+
     <Button
         android:id="@+id/send1"
         android:layout_width="match_parent"
@@ -24,5 +35,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="显示悬挂式通知" />
+
+    <Button
+        android:id="@+id/send4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打印正在运行的应用进程" />
 
 </LinearLayout>

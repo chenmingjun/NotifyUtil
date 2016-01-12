@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import com.whee.wheetalklollipop.MainActivity;
 
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * <p/>
@@ -118,10 +119,32 @@ public class Notifier {
     }
 
     public static boolean isRunningForeground(Context context) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
-        String currentPackageName = cn.getPackageName();
-        return !TextUtils.isEmpty(currentPackageName) && currentPackageName.equals(context.getPackageName());
+
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
+            String currentPackageName = cn.getPackageName();
+            return !TextUtils.isEmpty(currentPackageName) && currentPackageName.equals(context.getPackageName());
+        } else {
+            return isAppOnForeground(context);
+        }
+    }
+
+
+    public static boolean isAppOnForeground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        if (appProcesses == null) {
+            return false;
+        }
+        final String packageName = context.getPackageName();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && appProcess.processName.equals(packageName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
