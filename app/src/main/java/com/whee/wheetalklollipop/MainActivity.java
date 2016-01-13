@@ -3,18 +3,22 @@ package com.whee.wheetalklollipop;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AppOpsManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +26,12 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class MainActivity extends Activity {
     public static final int NOTIFICATION_ID = 1;
+    private Button mButton0;
     private Button mButton1;
     private Button mButton2;
     private Button mButton3;
@@ -37,23 +44,21 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mButton0 = (Button) findViewById(R.id.startactivity);
         mButton1 = (Button) findViewById(R.id.send1);
         mButton2 = (Button) findViewById(R.id.send2);
         mButton3 = (Button) findViewById(R.id.send3);
         mButton4 = (Button) findViewById(R.id.send4);
         mTextView = (TextView) findViewById(R.id.textview);
         mContext = this;
-        thread = new Thread(new Runnable() {
+        Intent intent = new Intent(MainActivity.this, MyService.class);
+        startService(intent);
+        mButton0.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                while (true) {
-                    Log.d("wenming", isRunningForeground(mContext) + " ");
-                }
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, SecondActivity.class);
+                startActivity(intent);
             }
         });
         mButton1.setOnClickListener(new View.OnClickListener() {
@@ -78,27 +83,11 @@ public class MainActivity extends Activity {
         mButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isRunningForeground(mContext);
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                        while (true) {
-//                            try {
-//                                Thread.sleep(5000);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-//                            Log.d("wenming", isRunningForeground(mContext) + " ");
-//                        }
-//                    }
-//                });
+                Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                startActivity(intent);
             }
         });
-
-
     }
-
 
     /**
      * 最基本的通知视图
@@ -170,56 +159,61 @@ public class MainActivity extends Activity {
         notificationManager.notify(2, mBuilder.build());
     }
 
-    public boolean isRunningForeground(Context context) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-            ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
-            String currentPackageName = cn.getPackageName();
-
-            showRunningTaskInfo(am.getRunningTasks(20));
-            return !TextUtils.isEmpty(currentPackageName) && currentPackageName.equals(context.getPackageName());
-        } else {
-            return isAppOnForeground(context);
-        }
-
-    }
-
-
-    public void showRunningTaskInfo(List<ActivityManager.RunningTaskInfo> list) {
+    @TargetApi(Build.VERSION_CODES.M)
+    public void showAppTaskInfo(List<ActivityManager.AppTask> list) {
         StringBuffer stringBuffer = new StringBuffer();
-        for (ActivityManager.RunningTaskInfo runningTaskInfo : list) {
-              Log.d("wenming", runningTaskInfo.topActivity.getPackageName());
-            stringBuffer.append(runningTaskInfo.topActivity.getPackageName());
+        for (ActivityManager.AppTask appTask : list) {
+            Log.d("wenming", appTask.getTaskInfo().topActivity.getPackageName());
+            stringBuffer.append(appTask.getTaskInfo().topActivity.getPackageName());
             stringBuffer.append('\n');
         }
         mTextView.setText(stringBuffer);
     }
 
-    public void showAppprocessInfo(List<ActivityManager.RunningAppProcessInfo> list) {
-        StringBuffer stringBuffer = new StringBuffer();
-        for (ActivityManager.RunningAppProcessInfo runningAppProcessInfo : list) {
-            //  Log.d("wenming", runningAppProcessInfo.processName);
-            stringBuffer.append(runningAppProcessInfo.processName);
-            stringBuffer.append('\n');
-        }
-        mTextView.setText(stringBuffer);
-    }
-
-    public boolean isAppOnForeground(Context context) {
+    @TargetApi(Build.VERSION_CODES.M)
+    public boolean isAppOnForeground2(Context context) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
-        showAppprocessInfo(appProcesses);
-        if (appProcesses == null) {
+        List<ActivityManager.AppTask> appTask = activityManager.getAppTasks();
+        showAppTaskInfo(appTask);
+        if (appTask == null) {
             return false;
         }
         final String packageName = context.getPackageName();
-        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
-            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && appProcess.processName.equals(packageName)) {
+        for (ActivityManager.AppTask appTask1 : appTask) {
+            if (appTask1.getTaskInfo().topActivity.getPackageName().equals(packageName)) {
                 return true;
             }
         }
-
         return false;
     }
+
+    /**
+     * 在android5.0版本后获取栈顶应用的方法getRunningTask方法被google给屏蔽掉了，还有一个折中的办法，
+     * 使用UsageStatsManager获取，但是这种获取方法需要用户在手机上赋予APP权限才可以使用，就是在安全-高级-有权查看使用情况的应用
+     * 在这个模块中勾选上指定APP就可以获取到栈顶的应用名。那么现在问题来了，如何调用系统提供的常量打开“有权查看使用权限的应用”界面。
+     */
+    private void getTopPackageName() {
+        String topPackageName;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            UsageStatsManager mUsageStatsManager = (UsageStatsManager) getSystemService("usagestats");
+            long time = System.currentTimeMillis();
+            // We get usage stats for the last 10 seconds
+            List<UsageStats> stats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 5, time);
+            // Sort the stats by the last time used
+            if (stats != null) {
+                SortedMap<Long, UsageStats> mySortedMap = new TreeMap<Long, UsageStats>();
+                for (UsageStats usageStats : stats) {
+                    mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
+                }
+                if (mySortedMap != null && !mySortedMap.isEmpty()) {
+                    topPackageName = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
+                    mTextView.setText(topPackageName);
+                }
+            }
+        }
+    }
+
+
+
 }
