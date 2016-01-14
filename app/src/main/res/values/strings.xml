@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">WheeTalkLollipop</string>
+    <string name="app_name">NotificationDemo</string>
     <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="tab1">App是否后台方法</string>
+    <string name="tab2">通知的样式</string>
+    <string name="tab3">关于我</string>
 </resources>
