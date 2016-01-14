@@ -22,7 +22,7 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
-import com.whee.wheetalklollipop.MainActivity;
+import com.whee.wheetalklollipop.activity.MainActivity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -33,25 +33,28 @@ import java.util.List;
  */
 public class Notifier {
     private static final String TAG = Notifier.class.getSimpleName();
+    private static final int UNIQUE_ID_FLASH = 0x1001;
+    private static final int UNIQUE_ID_COMMON_MESSAGE = 0x1002;
+    private static final int UNIQUE_ID_INVITATION = 0x1003;
+    private static final int UNIQUE_ID_SEND_MESSAGE_FAIL = 0x1004;
+    private static Notifier mInstance;
     private Context mContext;
     private NotificationManager mNotificationManager;
     private KeyguardManager mKeyguardManager;
-
     private long fromId = -1;
     private HashSet<Long> fromMessageUsers = new HashSet<Long>();
     private int notifyNum = 0;
     private int notifyInvitationNum = 0;
     private int notifyMessageNum = 0;
     private long lastNotifiyTime;
-
     //发送消息失败
     private long toIdSendMsgFail = -1;
     private int notifyNumSendMsgFail = 0;
+    private boolean isVoiceOn = true;
+    private boolean isVibrateOn = true;
 
     private Notifier() {
     }
-
-    private static Notifier mInstance;
 
     public static Notifier getInstance() {
         if (mInstance == null) {
@@ -62,6 +65,34 @@ public class Notifier {
             }
         }
         return mInstance;
+    }
+
+    public static boolean isRunningForeground(Context context) {
+
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
+            String currentPackageName = cn.getPackageName();
+            return !TextUtils.isEmpty(currentPackageName) && currentPackageName.equals(context.getPackageName());
+        } else {
+            return BackgroundMethod.isForeground(context, BackgroundMethod.BKGMETHOD_GETAPPLICATION_VALUE);
+        }
+    }
+
+    public static boolean isAppOnForeground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        if (appProcesses == null) {
+            return false;
+        }
+        final String packageName = context.getPackageName();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && appProcess.processName.equals(packageName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void prepare(Context context) {
@@ -117,45 +148,6 @@ public class Notifier {
         }
         return false;
     }
-
-    public static boolean isRunningForeground(Context context) {
-
-
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-            ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-            ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
-            String currentPackageName = cn.getPackageName();
-            return !TextUtils.isEmpty(currentPackageName) && currentPackageName.equals(context.getPackageName());
-        } else {
-            return isAppOnForeground(context);
-        }
-    }
-
-
-    public static boolean isAppOnForeground(Context context) {
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
-        if (appProcesses == null) {
-            return false;
-        }
-        final String packageName = context.getPackageName();
-        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
-            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && appProcess.processName.equals(packageName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    private static final int UNIQUE_ID_FLASH = 0x1001;
-    private static final int UNIQUE_ID_COMMON_MESSAGE = 0x1002;
-    private static final int UNIQUE_ID_INVITATION = 0x1003;
-    private static final int UNIQUE_ID_SEND_MESSAGE_FAIL = 0x1004;
-
-    private boolean isVoiceOn = true;
-    private boolean isVibrateOn = true;
-
 
     public void notify(Context context, String tag, int id, PendingIntent contentIntent, String contextTitle, String contextText, String tickerText, boolean isFlash, boolean soundOnly) {
         //获取电源管理器对象

@@ -1,8 +1,10 @@
-package com.whee.wheetalklollipop;
+package com.whee.wheetalklollipop.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.whee.wheetalklollipop.service.MyService;
 
 /**
  * Created by wenmingvs on 2016/1/13.
