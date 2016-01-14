@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.whee.wheetalklollipop.Features;
 import com.whee.wheetalklollipop.R;
@@ -23,7 +24,7 @@ public class OneFragment extends Fragment {
     private View mView;
 
     private CheckBox checkBox1, checkBox2, checkBox3, checkBox4, checkBox5;
-
+    private TextView mTextView;
     public OneFragment(Context context) {
         mContext = context;
     }
@@ -37,8 +38,13 @@ public class OneFragment extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_one, container, false);
         initCheckBox();
+        initTextView();
 
         return mView;
+    }
+
+    private void initTextView() {
+        mTextView = (TextView) mView.findViewById(R.id.reminder);
     }
 
     private void initCheckBox() {
@@ -53,6 +59,7 @@ public class OneFragment extends Fragment {
                 if (isChecked == true) {
                     deselectAll(R.id.checkbox1);
                     Features.BGK_METHOD = BackgroundMethod.BKGMETHOD_GETRUNNING_TASK;
+
                 }
             }
         });
@@ -92,7 +99,6 @@ public class OneFragment extends Fragment {
                 }
             }
         });
-
 
     }
 

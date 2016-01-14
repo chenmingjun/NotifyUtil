@@ -5,6 +5,6 @@ package com.whee.wheetalklollipop;
  */
 public class Features {
 
-    public static int BGK_METHOD = 1;
+    public static int BGK_METHOD = 0;
 
 }
