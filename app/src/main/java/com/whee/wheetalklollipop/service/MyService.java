@@ -88,7 +88,7 @@ public class MyService extends Service {
     }
 
     private boolean getAppStatus() {
-        return BackgroundMethod.isForeground(mContext, BackgroundMethod.BKGMETHOD_GETRUNNING_TASK);
+        return BackgroundMethod.isForeground(mContext, Features.BGK_METHOD);
     }
 
 }
