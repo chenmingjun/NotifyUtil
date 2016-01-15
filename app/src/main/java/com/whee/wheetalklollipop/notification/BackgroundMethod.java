@@ -91,7 +91,7 @@ public class BackgroundMethod {
     }
 
     /**
-     * 方法4：通过ActivityLifecycleCallbacks来批量统计Activity的生命周期，来做判断，此方法在API 14以上均有效，但是需要在Application中注册此回调接口
+     * 方法3：通过ActivityLifecycleCallbacks来批量统计Activity的生命周期，来做判断，此方法在API 14以上均有效，但是需要在Application中注册此回调接口
      * 必须：
      * 1. 自定义Application并且注册ActivityLifecycleCallbacks接口
      * 2. AndroidManifest.xml中更改默认的Application为自定义
@@ -103,7 +103,7 @@ public class BackgroundMethod {
     }
 
     /**
-     * 方法5：通过使用UsageStatsManager获取，此方法是ndroid5.0A之后提供的API
+     * 方法4：通过使用UsageStatsManager获取，此方法是ndroid5.0A之后提供的API
      * 必须：
      * 1. 此方法只在android5.0以上有效
      * 2. AndroidManifest中加入此权限<uses-permission xmlns:tools="http://schemas.android.com/tools" android:name="android.permission.PACKAGE_USAGE_STATS"
