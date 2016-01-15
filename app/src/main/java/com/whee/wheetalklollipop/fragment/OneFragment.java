@@ -97,13 +97,15 @@ public class OneFragment extends Fragment {
         checkBox4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked == true && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    deselectAll(R.id.checkbox4);
-                    Features.BGK_METHOD = BackgroundMethod.BKGMETHOD_GETUSAGESTATS;
-                    mTextView.setText(reminderlist.get(Features.BGK_METHOD));
-                } else {
-                    Toast.makeText(mContext, "此方法需要在Android5.0以上才能使用！", Toast.LENGTH_SHORT).show();
-                    checkBox4.setChecked(false);
+                if (isChecked == true) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        deselectAll(R.id.checkbox4);
+                        Features.BGK_METHOD = BackgroundMethod.BKGMETHOD_GETUSAGESTATS;
+                        mTextView.setText(reminderlist.get(Features.BGK_METHOD));
+                    } else {
+                        Toast.makeText(mContext, "此方法需要在Android5.0以上才能使用！", Toast.LENGTH_SHORT).show();
+                        checkBox4.setChecked(false);
+                    }
                 }
             }
         });
@@ -117,19 +119,16 @@ public class OneFragment extends Fragment {
                 checkBox2.setChecked(false);
                 checkBox3.setChecked(false);
                 checkBox4.setChecked(false);
-
                 break;
             case R.id.checkbox2:
                 checkBox1.setChecked(false);
                 checkBox3.setChecked(false);
                 checkBox4.setChecked(false);
-
                 break;
             case R.id.checkbox3:
                 checkBox1.setChecked(false);
                 checkBox2.setChecked(false);
                 checkBox4.setChecked(false);
-
                 break;
             case R.id.checkbox4:
                 checkBox1.setChecked(false);
