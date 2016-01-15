@@ -29,7 +29,6 @@ public class MyApplication extends Application {
             @Override
             public void onActivityResumed(Activity activity) {
                 Log.d("wenming", "onActivityResumed");
-
             }
 
             @Override

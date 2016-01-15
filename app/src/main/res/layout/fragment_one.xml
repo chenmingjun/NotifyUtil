@@ -22,7 +22,7 @@
         android:layout_margin="8dp"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:text="方法一"
+        android:text="@string/reminder1"
         android:textColor="#111111"
         android:textSize="15sp" />
 
@@ -118,6 +118,8 @@
             android:layout_marginRight="5dp" />
     </RelativeLayout>
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -150,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="110dp"
-            android:text="异步调用getRunningAppProce判断"
+            android:text="通过ActivityLifecycleCallbacks判断"
             android:textColor="#808080"
             android:textSize="13sp" />
 
@@ -195,57 +197,12 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="110dp"
-            android:text="通过ActivityLifecycleCallbacks判断"
-            android:textColor="#808080"
-            android:textSize="13sp" />
-
-        <CheckBox
-            android:id="@+id/checkbox4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="0.5dp"
-        android:background="@drawable/clickbackground"
-        android:clickable="true"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/myicon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="55dp"
-            android:text="方法五"
-            android:textColor="#111111"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="110dp"
             android:text="通过UsageStatsManager判断"
             android:textColor="#808080"
             android:textSize="13sp" />
 
         <CheckBox
-            android:id="@+id/checkbox5"
+            android:id="@+id/checkbox4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

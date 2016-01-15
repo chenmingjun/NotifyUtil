@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
 import com.whee.wheetalklollipop.Features;
@@ -25,13 +24,11 @@ import java.util.ArrayList;
  */
 public class MyService extends Service {
 
-    private final float UPDATA_INTERVAL = 0.5f;//in seconds
+    private final float UPDATA_INTERVAL = 1;//in seconds
     private String status;
-    private BackgroundMethod.ProcessTask processTask;
     private Context mContext;
     private ArrayList<String> mContentList;
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -41,32 +38,28 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-        processTask = new BackgroundMethod.ProcessTask(this);
+
         initContentData();
-
-
     }
 
     private void initContentData() {
         mContentList = new ArrayList<String>();
         mContentList.add("通过getRunningTask判断");
         mContentList.add("通过getRunningAppProcess判断");
-        mContentList.add("异步调用getRunningAppProce判断");
         mContentList.add("通过ActivityLifecycleCallbacks判断");
         mContentList.add("通过UsageStatsManager判断");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         status = getAppStatus() ? "前台" : "后台";
         intent = new Intent(mContext, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext)
                 .setSmallIcon(R.drawable.qqsmallicon)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.myicon))
-                .setContentTitle("App处于" + status)
                 .setContentText(mContentList.get(Features.BGK_METHOD))
+                .setContentTitle("App处于" + status)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
         Notification notification = mBuilder.build();
@@ -88,7 +81,7 @@ public class MyService extends Service {
     }
 
     private boolean getAppStatus() {
-        return BackgroundMethod.isForeground(mContext, Features.BGK_METHOD);
+        return BackgroundMethod.isForeground(mContext, BackgroundMethod.BKGMETHOD_GETAPPLICATION_VALUE, mContext.getPackageName());
     }
 
 }
