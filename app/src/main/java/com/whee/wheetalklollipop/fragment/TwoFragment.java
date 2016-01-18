@@ -194,9 +194,9 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         remoteViews.setTextViewText(R.id.text, "3个无用安装包，清理释放的空间");
         remoteViews.setOnClickPendingIntent(R.id.button, Pintent);//定义按钮点击后的动作
         int smallIcon = R.drawable.yybao_smaillicon;
-        NotifyUtil notify2 = new NotifyUtil(mContext, 5);
-        notify2.notify_customview(remoteViews, intent, smallIcon, ticker);
-        currentNotify = notify2;
+        NotifyUtil notify5 = new NotifyUtil(mContext, 5);
+        notify5.notify_customview(remoteViews, intent, smallIcon, ticker);
+        currentNotify = notify5;
     }
 
     /**
@@ -210,10 +210,10 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         int righticno = R.drawable.android_rightbutton;
         String righttext = "安装";
         Intent rightIntent = new Intent(mContext, OtherActivity.class);
-        NotifyUtil notify3 = new NotifyUtil(mContext, 6);
+        NotifyUtil notify6 = new NotifyUtil(mContext, 6);
         String ticker = "您有一条新通知";
-        notify3.notify_button(smallIcon, lefticon, lefttext, leftIntent, righticno, righttext, rightIntent, ticker, "系统更新已下载完毕", "Android 6.0.1");
-        currentNotify = notify3;
+        notify6.notify_button(smallIcon, lefticon, lefttext, leftIntent, righticno, righttext, rightIntent, ticker, "系统更新已下载完毕", "Android 6.0.1");
+        currentNotify = notify6;
     }
 
 
@@ -224,9 +224,9 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(mContext, OtherActivity.class);
         int smallIcon = R.drawable.android_bigicon;
         String ticker = "您有一条新通知";
-        NotifyUtil notify4 = new NotifyUtil(mContext, 7);
-        notify4.notify_progress(intent, smallIcon, ticker, "Android 6.0.1 下载", "正在下载中");
-        currentNotify = notify4;
+        NotifyUtil notify7 = new NotifyUtil(mContext, 7);
+        notify7.notify_progress(intent, smallIcon, ticker, "Android 6.0.1 下载", "正在下载中");
+        currentNotify = notify7;
     }
 
 
