@@ -17,19 +17,19 @@ import com.whee.wheetalklollipop.fragment.TwoFragment;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-        private TabLayout tabLayout;
-        private ViewPager viewPager;
-        private Context mContext;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private Context mContext;
 
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-            mContext = this;
-            initToolBar();
-            initTabViewPager();
-        }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mContext = this;
+        initToolBar();
+        initTabViewPager();
+    }
 
     private void initToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
