@@ -219,7 +219,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="55dp"
-            android:text="Android更新提醒样式"
+            android:text="Android系统更新样式"
             android:textColor="#111111"
             android:textSize="15sp" />
 
