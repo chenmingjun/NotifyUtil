@@ -267,13 +267,18 @@ public class NotifyUtil {
      * @param bigPic
      */
     public void notify_bigPic(Intent intent, int smallIcon, String ticker,
-                              String title, int bigPic) {
+                              String title, String content, int bigPic) {
 
         setCompatBuilder(intent, smallIcon, ticker, title, null);
         NotificationCompat.BigPictureStyle picStyle = new NotificationCompat.BigPictureStyle();
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inScaled = true;
+        options.inSampleSize = 2;
         Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),
-                bigPic);
+                bigPic, options);
         picStyle.bigPicture(bitmap);
+        picStyle.bigLargeIcon(bitmap);
+        cBuilder.setContentText(content);
         cBuilder.setStyle(picStyle);
         sent();
     }

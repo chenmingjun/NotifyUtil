@@ -146,7 +146,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         messageList.add("怎么不回复我？？我生气了！！");
         messageList.add("我真生气了！！！！！");
         messageList.add("文明，别不理我！！！");
-        String content = "[" +messageList.size()+ "条]" + title + ": " + messageList.get(0);
+        String content = "[" + messageList.size() + "条]" + title + ": " + messageList.get(0);
         NotifyUtil notify3 = new NotifyUtil(mContext, 3);
         notify3.notify_mailbox(intent, smallIcon, largeIcon, messageList, ticker,
                 title, content);
@@ -157,7 +157,18 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
      * 高仿系统截图通知
      */
     private void notify_bigPic() {
-        NotifyUtil notify3 = new NotifyUtil(mContext, 4);
+        Intent intent = new Intent(mContext, OtherActivity.class);
+        int smallIcon = R.drawable.xc_smaillicon;
+        int largePic = R.drawable.screenshot;
+        String ticker = "您有一条新通知";
+        String title = "已经抓取屏幕截图";
+        String content = "触摸可查看您的屏幕截图";
+
+
+        NotifyUtil notify4 = new NotifyUtil(mContext, 4);
+        notify4.notify_bigPic(intent, smallIcon, ticker, title, content, largePic);
+        currentNotify = notify4;
+
     }
 
 
