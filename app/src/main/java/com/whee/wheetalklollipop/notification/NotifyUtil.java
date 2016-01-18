@@ -132,7 +132,7 @@ public class NotifyUtil {
      * @param title
      * @param content
      */
-    public void notify_mailbox(Intent intent, int smallIcon, ArrayList<String> messageList,
+    public void notify_mailbox(Intent intent, int smallIcon, int largeIcon, ArrayList<String> messageList,
                                String ticker, String title, String content) {
 
         setCompatBuilder(intent, smallIcon, ticker, title, content);
@@ -166,7 +166,7 @@ public class NotifyUtil {
         for (String msg : messageList) {
             inboxStyle.addLine(msg);
         }
-        inboxStyle.setSummaryText("[" +messageList.size()+ "条]" + title);
+        inboxStyle.setSummaryText("[" + messageList.size() + "条]" + title);
         cBuilder.setStyle(inboxStyle);
         sent();
     }

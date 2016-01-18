@@ -98,14 +98,14 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/myicon" />
+            android:src="@drawable/wx_smallicon"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="55dp"
-            android:text="收件箱样式"
+            android:text="微信消息样式"
             android:textColor="#111111"
             android:textSize="15sp" />
 
