@@ -30,6 +30,7 @@ public class BackgroundMethod {
     public static final int BKGMETHOD_GETRUNNING_PROCESS = 1;
     public static final int BKGMETHOD_GETAPPLICATION_VALUE = 2;
     public static final int BKGMETHOD_GETUSAGESTATS = 3;
+    public static final int BKGMETHOD_GETLINUXPROCESS = 4;
 
 
     /**

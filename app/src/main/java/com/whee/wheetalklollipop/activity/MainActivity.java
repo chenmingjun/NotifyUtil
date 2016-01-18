@@ -1,7 +1,6 @@
 package com.whee.wheetalklollipop.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -14,27 +13,23 @@ import com.whee.wheetalklollipop.adapter.ViewPagerAdapter;
 import com.whee.wheetalklollipop.fragment.OneFragment;
 import com.whee.wheetalklollipop.fragment.ThreeFragment;
 import com.whee.wheetalklollipop.fragment.TwoFragment;
-import com.whee.wheetalklollipop.service.MyService;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private Context mContext;
+        private TabLayout tabLayout;
+        private ViewPager viewPager;
+        private Context mContext;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mContext = this;
-        Intent intent = new Intent(mContext, MyService.class);
-        startService(intent);
-        initToolBar();
-        initTabViewPager();
-
-    }
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            mContext = this;
+            initToolBar();
+            initTabViewPager();
+        }
 
     private void initToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -52,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setCurrentItem(1, false);
     }
 
 }

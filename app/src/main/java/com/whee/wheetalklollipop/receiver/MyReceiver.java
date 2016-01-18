@@ -13,8 +13,6 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-
-
         Intent i = new Intent(context, MyService.class);
         context.startService(i);
     }
