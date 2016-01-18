@@ -102,7 +102,7 @@ public class NotifyUtil {
         nBuilder.setTicker(ticker);
         nBuilder.setWhen(System.currentTimeMillis());
         nBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-        nBuilder.setDefaults(Notification.DEFAULT_ALL);
+        nBuilder.setDefaults(Notification.DEFAULT_SOUND);
     }
 
     /**
@@ -154,9 +154,8 @@ public class NotifyUtil {
         Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), largeIcon);
         cBuilder.setLargeIcon(bitmap);
 
-        cBuilder.setDefaults(Notification.DEFAULT_SOUND | // 设置使用默认的声音
-                Notification.DEFAULT_LIGHTS);// 设置使用默认的LED
-        cBuilder.setVibrate(new long[]{0, 100, 200, 300});// 设置自定义的振动
+        cBuilder.setDefaults(Notification.DEFAULT_SOUND);// 设置使用默认的声音
+        //cBuilder.setVibrate(new long[]{0, 100, 200, 300});// 设置自定义的振动
         cBuilder.setAutoCancel(true);
         // builder.setSound(Uri.parse("file:///sdcard/click.mp3"));
 
