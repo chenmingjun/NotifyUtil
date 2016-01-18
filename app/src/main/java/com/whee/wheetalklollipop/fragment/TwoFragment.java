@@ -144,7 +144,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         messageList.add("文明,今晚有空吗？");
         messageList.add("晚上跟我一起去玩吧?");
         messageList.add("怎么不回复我？？我生气了！！");
-        messageList.add("我真生气了！！！！！");
+        messageList.add("我真生气了！！！！！你听见了吗!");
         messageList.add("文明，别不理我！！！");
         String content = "[" + messageList.size() + "条]" + title + ": " + messageList.get(0);
         NotifyUtil notify3 = new NotifyUtil(mContext, 3);
