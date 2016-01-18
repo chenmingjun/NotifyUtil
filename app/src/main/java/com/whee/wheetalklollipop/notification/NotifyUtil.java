@@ -13,8 +13,6 @@ import android.os.SystemClock;
 import android.support.v7.app.NotificationCompat;
 import android.widget.RemoteViews;
 
-import com.whee.wheetalklollipop.R;
-
 import java.util.ArrayList;
 
 @SuppressLint("NewApi")
@@ -134,7 +132,7 @@ public class NotifyUtil {
      * @param title
      * @param content
      */
-    public void notify_mailbox(Intent intent, int smallIcon, int largeIcon,ArrayList<String> messageList,
+    public void notify_mailbox(Intent intent, int smallIcon, ArrayList<String> messageList,
                                String ticker, String title, String content) {
 
         setCompatBuilder(intent, smallIcon, ticker, title, content);
