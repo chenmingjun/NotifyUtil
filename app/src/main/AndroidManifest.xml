@@ -22,12 +22,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <service android:name=".service.MyService" />
+
         <receiver android:name=".receiver.MyReceiver" />
 
+        <activity android:name=".activity.OtherActivity"></activity>
     </application>
 
 </manifest>

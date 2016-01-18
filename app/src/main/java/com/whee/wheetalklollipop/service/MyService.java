@@ -2,6 +2,7 @@ package com.whee.wheetalklollipop.service;
 
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
+import android.widget.RelativeLayout;
 
 import com.whee.wheetalklollipop.Features;
 import com.whee.wheetalklollipop.R;
@@ -28,6 +30,11 @@ public class MyService extends Service {
     private String status;
     private Context mContext;
     private ArrayList<String> mContentList;
+    private Notification notification;
+    private AlarmManager manager;
+    private PendingIntent pendingIntent;
+    private RelativeLayout mClickLayout;
+    private NotificationManager notificationManager;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -38,9 +45,9 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-
         initContentData();
     }
+
 
     private void initContentData() {
         mContentList = new ArrayList<String>();
@@ -52,25 +59,30 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        status = getAppStatus() ? "前台" : "后台";
-        intent = new Intent(mContext, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext)
-                .setSmallIcon(R.drawable.qqsmallicon)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.myicon))
-                .setContentText(mContentList.get(Features.BGK_METHOD))
-                .setContentTitle("App处于" + status)
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
-        Notification notification = mBuilder.build();
-        startForeground(1, notification);
-        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        //这里是定时的,这里设置的是每隔1秒打印一次时间
-        int anHour = (int) UPDATA_INTERVAL * 1000;
-        long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
-        Intent i = new Intent(mContext, MyReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, i, 0);
-        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
+        if (!Features.stopForeground) {
+            status = getAppStatus() ? "前台" : "后台";
+            intent = new Intent(mContext, MainActivity.class);
+            pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext)
+                    .setSmallIcon(R.drawable.myicon)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.myicon))
+                    .setContentText(mContentList.get(Features.BGK_METHOD))
+                    .setContentTitle("App处于" + status)
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent);
+            notification = mBuilder.build();
+            startForeground(1, notification);
+            manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            //这里是定时的,这里设置的是每隔1秒打印一次时间
+            int anHour = (int) UPDATA_INTERVAL * 1000;
+            long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
+            Intent i = new Intent(mContext, MyReceiver.class);
+            PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, i, 0);
+            manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
+        } else {
+            stopForeground(true);
+        }
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -83,5 +95,6 @@ public class MyService extends Service {
     private boolean getAppStatus() {
         return BackgroundMethod.isForeground(mContext, BackgroundMethod.BKGMETHOD_GETAPPLICATION_VALUE, mContext.getPackageName());
     }
+
 
 }
