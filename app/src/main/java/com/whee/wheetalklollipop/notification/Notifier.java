@@ -23,6 +23,7 @@ import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.whee.wheetalklollipop.activity.MainActivity;
+import com.whee.wheetalklollipop.util.BackgroundUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -76,7 +77,7 @@ public class Notifier {
             String currentPackageName = cn.getPackageName();
             return !TextUtils.isEmpty(currentPackageName) && currentPackageName.equals(context.getPackageName());
         } else {
-            return BackgroundMethod.isForeground(context, BackgroundMethod.BKGMETHOD_GETAPPLICATION_VALUE, context.getPackageName());
+            return BackgroundUtil.isForeground(context, BackgroundUtil.BKGMETHOD_GETAPPLICATION_VALUE, context.getPackageName());
         }
     }
 

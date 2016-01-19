@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 import com.whee.wheetalklollipop.Features;
 import com.whee.wheetalklollipop.R;
-import com.whee.wheetalklollipop.notification.BackgroundMethod;
 import com.whee.wheetalklollipop.service.MyService;
+import com.whee.wheetalklollipop.util.BackgroundUtil;
 
 import java.util.ArrayList;
 
@@ -89,7 +89,7 @@ public class OneFragment extends Fragment {
                     startService();
                     deselectAll();
                     checkBox1.setChecked(true);
-                    Features.BGK_METHOD = BackgroundMethod.BKGMETHOD_GETRUNNING_TASK;
+                    Features.BGK_METHOD = BackgroundUtil.BKGMETHOD_GETRUNNING_TASK;
                     mTextView.setText(reminderlist.get(Features.BGK_METHOD));
                 } else {
                     stopService();
@@ -103,7 +103,7 @@ public class OneFragment extends Fragment {
                     startService();
                     deselectAll();
                     checkBox2.setChecked(true);
-                    Features.BGK_METHOD = BackgroundMethod.BKGMETHOD_GETRUNNING_PROCESS;
+                    Features.BGK_METHOD = BackgroundUtil.BKGMETHOD_GETRUNNING_PROCESS;
                     mTextView.setText(reminderlist.get(Features.BGK_METHOD));
                 } else {
                     stopService();
@@ -117,7 +117,7 @@ public class OneFragment extends Fragment {
                     startService();
                     deselectAll();
                     checkBox3.setChecked(true);
-                    Features.BGK_METHOD = BackgroundMethod.BKGMETHOD_GETAPPLICATION_VALUE;
+                    Features.BGK_METHOD = BackgroundUtil.BKGMETHOD_GETAPPLICATION_VALUE;
                     mTextView.setText(reminderlist.get(Features.BGK_METHOD));
                 } else {
                     stopService();
@@ -132,7 +132,7 @@ public class OneFragment extends Fragment {
                         startService();
                         deselectAll();
                         checkBox4.setChecked(true);
-                        Features.BGK_METHOD = BackgroundMethod.BKGMETHOD_GETUSAGESTATS;
+                        Features.BGK_METHOD = BackgroundUtil.BKGMETHOD_GETUSAGESTATS;
                         mTextView.setText(reminderlist.get(Features.BGK_METHOD));
                     } else {
                         Toast.makeText(mContext, "此方法需要在Android5.0以上才能使用！", Toast.LENGTH_SHORT).show();
@@ -151,7 +151,7 @@ public class OneFragment extends Fragment {
                     startService();
                     deselectAll();
                     checkBox5.setChecked(true);
-                    Features.BGK_METHOD = BackgroundMethod.BKGMETHOD_GETLINUXPROCESS;
+                    Features.BGK_METHOD = BackgroundUtil.BKGMETHOD_GETLINUXPROCESS;
                     mTextView.setText(reminderlist.get(Features.BGK_METHOD));
                 } else {
                     stopService();

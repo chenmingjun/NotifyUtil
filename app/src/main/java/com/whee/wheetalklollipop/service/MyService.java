@@ -16,8 +16,8 @@ import android.widget.RelativeLayout;
 import com.whee.wheetalklollipop.Features;
 import com.whee.wheetalklollipop.R;
 import com.whee.wheetalklollipop.activity.MainActivity;
-import com.whee.wheetalklollipop.notification.BackgroundMethod;
 import com.whee.wheetalklollipop.receiver.MyReceiver;
+import com.whee.wheetalklollipop.util.BackgroundUtil;
 
 import java.util.ArrayList;
 
@@ -82,7 +82,6 @@ public class MyService extends Service {
         } else {
             stopForeground(true);
         }
-
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -93,7 +92,7 @@ public class MyService extends Service {
     }
 
     private boolean getAppStatus() {
-        return BackgroundMethod.isForeground(mContext, BackgroundMethod.BKGMETHOD_GETAPPLICATION_VALUE, mContext.getPackageName());
+        return BackgroundUtil.isForeground(mContext, BackgroundUtil.BKGMETHOD_GETAPPLICATION_VALUE, mContext.getPackageName());
     }
 
 

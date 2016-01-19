@@ -14,7 +14,7 @@ import android.widget.RemoteViews;
 
 import com.whee.wheetalklollipop.R;
 import com.whee.wheetalklollipop.activity.OtherActivity;
-import com.whee.wheetalklollipop.notification.NotifyUtil;
+import com.whee.wheetalklollipop.util.NotifyUtil;
 
 import java.util.ArrayList;
 
@@ -94,7 +94,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
                 notify_progress();
                 break;
             case R.id.button8:
-
+                notify_headUp();
                 break;
             case R.id.button9:
                 currentNotify.clear();
@@ -113,7 +113,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         String title = "双十一大推送";
         String content = "仿真皮肤充气娃娃，女朋友带回家！";
         NotifyUtil notify1 = new NotifyUtil(mContext, 1);
-        notify1.notify_normal_singline(intent, smallIcon, ticker, title, content);
+        notify1.notify_normal_singline(intent, smallIcon, ticker, title, content, false);
         currentNotify = notify1;
     }
 
@@ -127,7 +127,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         String title = "朱立伦请辞国民党主席 副主席黄敏惠暂代党主席";
         String content = "据台湾“中央社”报道，国民党主席朱立伦今天(18日)向中常会报告，为败选请辞党主席一职，他感谢各位中常委的指教包容，也宣布未来党务工作由副主席黄敏惠暂代，完成未来所有补选工作。";
         NotifyUtil notify2 = new NotifyUtil(mContext, 2);
-        notify2.notify_normail_moreline(intent, smallIcon, ticker, title, content);
+        notify2.notify_normail_moreline(intent, smallIcon, ticker, title, content, false);
         currentNotify = notify2;
     }
 
@@ -149,7 +149,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         String content = "[" + messageList.size() + "条]" + title + ": " + messageList.get(0);
         NotifyUtil notify3 = new NotifyUtil(mContext, 3);
         notify3.notify_mailbox(intent, smallIcon, largeIcon, messageList, ticker,
-                title, content);
+                title, content, false);
         currentNotify = notify3;
     }
 
@@ -166,7 +166,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
 
         NotifyUtil notify4 = new NotifyUtil(mContext, 4);
-        notify4.notify_bigPic(intent, smallIcon, ticker, title, content, largePic);
+        notify4.notify_bigPic(intent, smallIcon, ticker, title, content, largePic, false);
         currentNotify = notify4;
 
     }
@@ -195,7 +195,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         remoteViews.setOnClickPendingIntent(R.id.button, Pintent);//定义按钮点击后的动作
         int smallIcon = R.drawable.yybao_smaillicon;
         NotifyUtil notify5 = new NotifyUtil(mContext, 5);
-        notify5.notify_customview(remoteViews, intent, smallIcon, ticker);
+        notify5.notify_customview(remoteViews, intent, smallIcon, ticker, false);
         currentNotify = notify5;
     }
 
@@ -212,7 +212,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         Intent rightIntent = new Intent(mContext, OtherActivity.class);
         NotifyUtil notify6 = new NotifyUtil(mContext, 6);
         String ticker = "您有一条新通知";
-        notify6.notify_button(smallIcon, lefticon, lefttext, leftIntent, righticon, righttext, rightIntent, ticker, "系统更新已下载完毕", "Android 6.0.1");
+        notify6.notify_button(smallIcon, lefticon, lefttext, leftIntent, righticon, righttext, rightIntent, ticker, "系统更新已下载完毕", "Android 6.0.1", false);
         currentNotify = notify6;
     }
 
@@ -225,9 +225,27 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         int smallIcon = R.drawable.android_bigicon;
         String ticker = "您有一条新通知";
         NotifyUtil notify7 = new NotifyUtil(mContext, 7);
-        notify7.notify_progress(intent, smallIcon, ticker, "Android 6.0.1 下载", "正在下载中");
+        notify7.notify_progress(intent, smallIcon, ticker, "Android 6.0.1 下载", "正在下载中", false);
         currentNotify = notify7;
     }
 
+    private void notify_headUp() {
+        Intent intent = new Intent(mContext, OtherActivity.class);
+        int smallIcon = R.drawable.hl_smallicon;
+        int largeIcon = R.drawable.fbb_largeicon;
+        String ticker = "您有一条新通知";
+        String title = "范冰冰";
+        String content = "文明，今晚在希尔顿酒店2016号房哈";
+        NotifyUtil notify8 = new NotifyUtil(mContext, 8);
+
+        int lefticon = R.drawable.hl_message;
+        String lefttext = "回复";
+        Intent leftIntent = new Intent();
+        int righticon = R.drawable.hl_call;
+        String righttext = "拨打";
+        Intent rightIntent = new Intent(mContext, OtherActivity.class);
+        notify8.notify_HeadUp(intent, smallIcon, largeIcon, ticker, title, content, lefticon, lefttext, leftIntent, righticon, righttext, rightIntent);
+        currentNotify = notify8;
+    }
 
 }

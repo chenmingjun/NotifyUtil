@@ -1,4 +1,4 @@
-package com.whee.wheetalklollipop.notification;
+package com.whee.wheetalklollipop.util;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by wenmingvs on 2016/1/14.
  */
-public class BackgroundMethod {
+public class BackgroundUtil {
     public static final int BKGMETHOD_GETRUNNING_TASK = 0;
     public static final int BKGMETHOD_GETRUNNING_PROCESS = 1;
     public static final int BKGMETHOD_GETAPPLICATION_VALUE = 2;
