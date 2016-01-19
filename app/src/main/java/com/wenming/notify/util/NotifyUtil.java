@@ -1,4 +1,4 @@
-package com.whee.wheetalklollipop.util;
+package com.wenming.notify.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -340,7 +340,6 @@ public class NotifyUtil {
         } else {
             Toast.makeText(mContext, "版本低于Andriod5.0，无法体验HeadUp样式通知", Toast.LENGTH_SHORT).show();
         }
-
         sent();
     }
 

@@ -1,4 +1,4 @@
-package com.whee.wheetalklollipop;
+package com.wenming.wheetalklollipop;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

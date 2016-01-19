@@ -1,4 +1,4 @@
-package com.whee.wheetalklollipop.fragment;
+package com.wenming.notify.fragment;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,16 +12,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 
-import com.whee.wheetalklollipop.R;
-import com.whee.wheetalklollipop.activity.OtherActivity;
-import com.whee.wheetalklollipop.util.NotifyUtil;
+import com.wenming.notify.R;
+import com.wenming.notify.activity.OtherActivity;
+import com.wenming.notify.util.NotifyUtil;
 
 import java.util.ArrayList;
 
 /**
  * Created by wenmingvs on 2016/1/14.
  */
-public class TwoFragment extends Fragment implements View.OnClickListener {
+public class OneFragment extends Fragment implements View.OnClickListener {
     private static int NOTIFICATION_ID = 13565400;
     private Context mContext;
     private View mView;
@@ -29,7 +29,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
     private NotifyUtil currentNotify;
 
 
-    public TwoFragment(Context context) {
+    public OneFragment(Context context) {
         mContext = context;
     }
 
@@ -41,7 +41,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_two, container, false);
+        mView = inflater.inflate(R.layout.fragment_one, container, false);
         initClickListener();
         return mView;
     }

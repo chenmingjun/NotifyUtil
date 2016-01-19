@@ -1,4 +1,4 @@
-package com.whee.wheetalklollipop;
+package com.wenming.notify;
 
 import android.app.Activity;
 import android.app.Application;

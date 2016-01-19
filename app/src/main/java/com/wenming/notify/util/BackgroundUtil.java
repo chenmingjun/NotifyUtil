@@ -1,4 +1,4 @@
-package com.whee.wheetalklollipop.util;
+package com.wenming.notify.util;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -16,7 +16,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.whee.wheetalklollipop.MyApplication;
+import com.wenming.notify.MyApplication;
 
 import java.util.Collections;
 import java.util.Comparator;

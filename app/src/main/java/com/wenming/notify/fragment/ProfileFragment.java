@@ -1,4 +1,4 @@
-package com.whee.wheetalklollipop.fragment;
+package com.wenming.notify.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,16 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.whee.wheetalklollipop.R;
+import com.wenming.notify.R;
+
 
 /**
  * Created by wenmingvs on 2016/1/14.
  */
-public class ThreeFragment extends Fragment {
+public class ProfileFragment extends Fragment {
     private Context mContext;
     private View mView;
 
-    public ThreeFragment(Context context) {
+    public ProfileFragment(Context context) {
         mContext = context;
     }
 

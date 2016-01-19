@@ -6,7 +6,7 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.whee.wheetalklollipop.notification;
+package com.wenming.notify.notification;
 
 import android.app.ActivityManager;
 import android.app.KeyguardManager;
@@ -22,8 +22,8 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
-import com.whee.wheetalklollipop.activity.MainActivity;
-import com.whee.wheetalklollipop.util.BackgroundUtil;
+import com.wenming.notify.activity.MainActivity;
+import com.wenming.notify.util.BackgroundUtil;
 
 import java.util.HashSet;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.whee.wheetalklollipop.adapter;
+package com.wenming.notify.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

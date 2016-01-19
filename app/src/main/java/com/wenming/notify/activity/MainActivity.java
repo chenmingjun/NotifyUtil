@@ -1,4 +1,4 @@
-package com.whee.wheetalklollipop.activity;
+package com.wenming.notify.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,11 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.whee.wheetalklollipop.R;
-import com.whee.wheetalklollipop.adapter.ViewPagerAdapter;
-import com.whee.wheetalklollipop.fragment.OneFragment;
-import com.whee.wheetalklollipop.fragment.ThreeFragment;
-import com.whee.wheetalklollipop.fragment.TwoFragment;
+import com.wenming.notify.R;
+import com.wenming.notify.adapter.ViewPagerAdapter;
+import com.wenming.notify.fragment.OneFragment;
+import com.wenming.notify.fragment.ProfileFragment;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,13 +41,12 @@ public class MainActivity extends AppCompatActivity {
     private void initTabViewPager() {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragment(mContext), getString(R.string.tab1));
-        adapter.addFragment(new TwoFragment(mContext), getString(R.string.tab2));
-        adapter.addFragment(new ThreeFragment(mContext), getString(R.string.tab3));
+        adapter.addFragment(new OneFragment(mContext), getString(R.string.tab2));
+        adapter.addFragment(new ProfileFragment(mContext), getString(R.string.tab3));
         viewPager.setAdapter(adapter);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.setCurrentItem(1, false);
+        viewPager.setCurrentItem(0, false);
     }
 
 }
