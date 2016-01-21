@@ -239,7 +239,7 @@
 
 8. Heads-up 样式： Android 5.0 新特性
 -----
-![enter image description here](http://ww4.sinaimg.cn/mw690/691cc151gw1f075gk4ozcg20dc0k0npe.gif)
+![enter image description here](http://ww3.sinaimg.cn/mw1024/691cc151gw1f075potdtug20dc0k0npe.gif)
 ``` java
 /**
      * Android 5。0 新特性：悬浮式通知
