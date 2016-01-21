@@ -12,7 +12,7 @@ NotifyDemo Android App, require Android 4.0+, GPL v3 License
 
 八种通知类型的展示  ：
 ------
-![enter image description here](http://ww4.sinaimg.cn/large/691cc151gw1f079y193ahg20cy0jg4r7.gif)
+[enter link description here](http://s1078.photobucket.com/component/Download-File?file=/albums/w492/wenmingvs/demo0_zpsr4ybln3g.gif)
 
 
 用法：
