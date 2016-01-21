@@ -5,6 +5,6 @@ package com.wenming.notify;
  */
 public class Features {
 
-    public static boolean showProfile = false;
+    public static boolean showProfile = true;
 
 }

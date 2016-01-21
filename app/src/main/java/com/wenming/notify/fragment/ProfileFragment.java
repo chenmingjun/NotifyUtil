@@ -1,6 +1,5 @@
 package com.wenming.notify.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -18,12 +17,10 @@ import com.wenming.notify.R;
  * Created by wenmingvs on 2016/1/14.
  */
 public class ProfileFragment extends Fragment {
-    private Context mContext;
     private View mView;
     private WebView mContentWv;
 
-    public ProfileFragment(Context context) {
-        mContext = context;
+    public ProfileFragment() {
     }
 
     @Override
@@ -36,7 +33,6 @@ public class ProfileFragment extends Fragment {
         mView = inflater.inflate(R.layout.profile_layout, container, false);
         mContentWv = (WebView) mView.findViewById(R.id.wv_webview_content);
         initWebView();
-
         return mView;
     }
 

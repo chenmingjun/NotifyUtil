@@ -21,8 +21,8 @@ import java.util.ArrayList;
 public class NotifyUtil {
 
     private static final int FLAG = Notification.FLAG_INSISTENT;
-    private static int NOTIFICATION_ID;
     int requestCode = (int) SystemClock.uptimeMillis();
+    private int NOTIFICATION_ID;
     private NotificationManager nm;
     private Notification notification;
     private NotificationCompat.Builder cBuilder;
@@ -42,20 +42,20 @@ public class NotifyUtil {
     /**
      * 设置在顶部通知栏中的各种信息
      *
-     * @param intent
+     * @param pendingIntent
      * @param smallIcon
      * @param ticker
      */
-    private void setCompatBuilder(Intent intent, int smallIcon, String ticker,
-                                  String title, String content, boolean defalutsound) {
-        // 如果当前Activity启动在前台，则不开启新的Activity。
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        // 当设置下面PendingIntent.FLAG_UPDATE_CURRENT这个参数的时候，常常使得点击通知栏没效果，你需要给notification设置一个独一无二的requestCode
-        // 将Intent封装进PendingIntent中，点击通知的消息后，就会启动对应的程序
-        PendingIntent pIntent = PendingIntent.getActivity(mContext,
-                requestCode, intent, FLAG);
+    private void setCompatBuilder(PendingIntent pendingIntent, int smallIcon, String ticker,
+                                  String title, String content, boolean sound, boolean vibrate, boolean lights) {
+//        // 如果当前Activity启动在前台，则不开启新的Activity。
+//        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        // 当设置下面PendingIntent.FLAG_UPDATE_CURRENT这个参数的时候，常常使得点击通知栏没效果，你需要给notification设置一个独一无二的requestCode
+//        // 将Intent封装进PendingIntent中，点击通知的消息后，就会启动对应的程序
+//        PendingIntent pIntent = PendingIntent.getActivity(mContext,
+//                requestCode, intent, FLAG);
 
-        cBuilder.setContentIntent(pIntent);// 该通知要启动的Intent
+        cBuilder.setContentIntent(pendingIntent);// 该通知要启动的Intent
 
         cBuilder.setSmallIcon(smallIcon);// 设置顶部状态栏的小图标
         cBuilder.setTicker(ticker);// 在顶部状态栏中的提示信息
@@ -83,33 +83,53 @@ public class NotifyUtil {
 		 * Notification.DEFAULT_LIGHTS：系统默认闪光。
 		 * notifyBuilder.setDefaults(Notification.DEFAULT_ALL);
 		 */
-        if (defalutsound) {
-            cBuilder.setDefaults(Notification.DEFAULT_SOUND);
+        int defaults = 0;
+
+        if (sound) {
+            defaults |= Notification.DEFAULT_SOUND;
+        }
+        if (vibrate) {
+            defaults |= Notification.DEFAULT_VIBRATE;
+        }
+        if (lights) {
+            defaults |= Notification.DEFAULT_LIGHTS;
         }
 
+        cBuilder.setDefaults(defaults);
     }
 
     /**
      * 设置builder的信息，在用大文本时会用到这个
      *
-     * @param intent
+     * @param pendingIntent
      * @param smallIcon
      * @param ticker
      */
-    private void setBuilder(Intent intent, int smallIcon, String ticker, boolean enableSound) {
+    private void setBuilder(PendingIntent pendingIntent, int smallIcon, String ticker, boolean sound, boolean vibrate, boolean lights) {
         nBuilder = new Notification.Builder(mContext);
         // 如果当前Activity启动在前台，则不开启新的Activity。
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pIntent = PendingIntent.getActivity(mContext,
-                requestCode, intent, FLAG);
-        nBuilder.setContentIntent(pIntent);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        PendingIntent pIntent = PendingIntent.getActivity(mContext,
+//                requestCode, intent, FLAG);
+        nBuilder.setContentIntent(pendingIntent);
         nBuilder.setSmallIcon(smallIcon);
         nBuilder.setTicker(ticker);
         nBuilder.setWhen(System.currentTimeMillis());
         nBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-        if (enableSound) {
-            nBuilder.setDefaults(Notification.DEFAULT_SOUND);
+
+        int defaults = 0;
+
+        if (sound) {
+            defaults |= Notification.DEFAULT_SOUND;
         }
+        if (vibrate) {
+            defaults |= Notification.DEFAULT_VIBRATE;
+        }
+        if (lights) {
+            defaults |= Notification.DEFAULT_LIGHTS;
+        }
+
+        nBuilder.setDefaults(defaults);
     }
 
     /**
@@ -117,32 +137,32 @@ public class NotifyUtil {
      * <p/>
      * 1. 侧滑即消失，下拉通知菜单则在通知菜单显示
      *
-     * @param intent
+     * @param pendingIntent
      * @param smallIcon
      * @param ticker
      * @param title
      * @param content
      */
-    public void notify_normal_singline(Intent intent, int smallIcon,
-                                       String ticker, String title, String content, boolean enableSound) {
+    public void notify_normal_singline(PendingIntent pendingIntent, int smallIcon,
+                                       String ticker, String title, String content, boolean sound, boolean vibrate, boolean lights) {
 
-        setCompatBuilder(intent, smallIcon, ticker, title, content, enableSound);
+        setCompatBuilder(pendingIntent, smallIcon, ticker, title, content, sound, vibrate, lights);
         sent();
     }
 
     /**
      * 进行多项设置的通知(在小米上似乎不能设置大图标，系统默认大图标为应用图标)
      *
-     * @param intent
+     * @param pendingIntent
      * @param smallIcon
      * @param ticker
      * @param title
      * @param content
      */
-    public void notify_mailbox(Intent intent, int smallIcon, int largeIcon, ArrayList<String> messageList,
-                               String ticker, String title, String content, boolean enableSound) {
+    public void notify_mailbox(PendingIntent pendingIntent, int smallIcon, int largeIcon, ArrayList<String> messageList,
+                               String ticker, String title, String content, boolean sound, boolean vibrate, boolean lights) {
 
-        setCompatBuilder(intent, smallIcon, ticker, title, content, enableSound);
+        setCompatBuilder(pendingIntent, smallIcon, ticker, title, content, sound, vibrate, lights);
 
         // 将Ongoing设为true 那么notification将不能滑动删除
         //cBuilder.setOngoing(true);
@@ -161,7 +181,7 @@ public class NotifyUtil {
         Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), largeIcon);
         cBuilder.setLargeIcon(bitmap);
 
-        cBuilder.setDefaults(Notification.DEFAULT_SOUND);// 设置使用默认的声音
+        cBuilder.setDefaults(Notification.DEFAULT_ALL);// 设置使用默认的声音
         //cBuilder.setVibrate(new long[]{0, 100, 200, 300});// 设置自定义的振动
         cBuilder.setAutoCancel(true);
         // builder.setSound(Uri.parse("file:///sdcard/click.mp3"));
@@ -181,14 +201,14 @@ public class NotifyUtil {
      * 自定义视图的通知
      *
      * @param remoteViews
-     * @param intent
+     * @param pendingIntent
      * @param smallIcon
      * @param ticker
      */
-    public void notify_customview(RemoteViews remoteViews, Intent intent,
-                                  int smallIcon, String ticker, boolean enableSound) {
+    public void notify_customview(RemoteViews remoteViews, PendingIntent pendingIntent,
+                                  int smallIcon, String ticker, boolean sound, boolean vibrate, boolean lights) {
 
-        setCompatBuilder(intent, smallIcon, ticker, null, null, enableSound);
+        setCompatBuilder(pendingIntent, smallIcon, ticker, null, null, sound, vibrate, lights);
 
         notification = cBuilder.build();
         notification.contentView = remoteViews;
@@ -199,21 +219,21 @@ public class NotifyUtil {
     /**
      * 可以容纳多行提示文本的通知信息 (因为在高版本的系统中才支持，所以要进行判断)
      *
-     * @param intent
+     * @param pendingIntent
      * @param smallIcon
      * @param ticker
      * @param title
      * @param content
      */
-    public void notify_normail_moreline(Intent intent, int smallIcon, String ticker,
-                                        String title, String content, boolean enableSound) {
+    public void notify_normail_moreline(PendingIntent pendingIntent, int smallIcon, String ticker,
+                                        String title, String content, boolean sound, boolean vibrate, boolean lights) {
 
         final int sdk = android.os.Build.VERSION.SDK_INT;
         if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            notify_normal_singline(intent, smallIcon, ticker, title, content, enableSound);
+            notify_normal_singline(pendingIntent, smallIcon, ticker, title, content, sound, vibrate, lights);
+            Toast.makeText(mContext, "您的手机低于Android 4.1.2，不支持多行通知显示！！", Toast.LENGTH_SHORT).show();
         } else {
-
-            setBuilder(intent, smallIcon, ticker, false);
+            setBuilder(pendingIntent, smallIcon, ticker, true, true, false);
             nBuilder.setContentTitle(title);
             nBuilder.setContentText(content);
             nBuilder.setPriority(Notification.PRIORITY_HIGH);
@@ -226,16 +246,16 @@ public class NotifyUtil {
     /**
      * 有进度条的通知，可以设置为模糊进度或者精确进度
      *
-     * @param intent
+     * @param pendingIntent
      * @param smallIcon
      * @param ticker
      * @param title
      * @param content
      */
-    public void notify_progress(Intent intent, int smallIcon,
-                                String ticker, String title, String content, boolean enableSound) {
+    public void notify_progress(PendingIntent pendingIntent, int smallIcon,
+                                String ticker, String title, String content, boolean sound, boolean vibrate, boolean lights) {
 
-        setCompatBuilder(intent, smallIcon, ticker, title, content, enableSound);
+        setCompatBuilder(pendingIntent, smallIcon, ticker, title, content, sound, vibrate, lights);
         /*
          * 因为进度条要实时更新通知栏也就说要不断的发送新的提示，所以这里不建议开启通知声音。
 		 * 这里是作为范例，给大家讲解下原理。所以发送通知后会听到多次的通知声音。
@@ -266,16 +286,16 @@ public class NotifyUtil {
     /**
      * 容纳大图片的通知
      *
-     * @param intent
+     * @param pendingIntent
      * @param smallIcon
      * @param ticker
      * @param title
      * @param bigPic
      */
-    public void notify_bigPic(Intent intent, int smallIcon, String ticker,
-                              String title, String content, int bigPic, boolean enableSound) {
+    public void notify_bigPic(PendingIntent pendingIntent, int smallIcon, String ticker,
+                              String title, String content, int bigPic, boolean sound, boolean vibrate, boolean lights) {
 
-        setCompatBuilder(intent, smallIcon, ticker, title, null, enableSound);
+        setCompatBuilder(pendingIntent, smallIcon, ticker, title, null, sound, vibrate, lights);
         NotificationCompat.BigPictureStyle picStyle = new NotificationCompat.BigPictureStyle();
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = true;
@@ -295,25 +315,19 @@ public class NotifyUtil {
      * @param smallIcon
      * @param leftbtnicon
      * @param lefttext
-     * @param leftIntent
+     * @param leftPendIntent
      * @param rightbtnicon
      * @param righttext
-     * @param rightIntent
+     * @param rightPendIntent
      * @param ticker
      * @param title
      * @param content
      */
-    public void notify_button(int smallIcon, int leftbtnicon, String lefttext, Intent leftIntent, int rightbtnicon, String righttext, Intent rightIntent, String ticker,
-                              String title, String content, boolean enableSound) {
+    public void notify_button(int smallIcon, int leftbtnicon, String lefttext, PendingIntent leftPendIntent, int rightbtnicon, String righttext, PendingIntent rightPendIntent, String ticker,
+                              String title, String content, boolean sound, boolean vibrate, boolean lights) {
 
-        int requestCode = (int) SystemClock.uptimeMillis();
-        PendingIntent leftPendIntent = PendingIntent.getActivity(mContext,
-                requestCode, leftIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        PendingIntent rightPendIntent = PendingIntent.getActivity(mContext,
-                requestCode, rightIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        setCompatBuilder(rightIntent, smallIcon, ticker, title, content, enableSound);
+        requestCode = (int) SystemClock.uptimeMillis();
+        setCompatBuilder(rightPendIntent, smallIcon, ticker, title, content, sound, vibrate, lights);
         cBuilder.addAction(leftbtnicon,
                 lefttext, leftPendIntent);
         cBuilder.addAction(rightbtnicon,
@@ -321,22 +335,17 @@ public class NotifyUtil {
         sent();
     }
 
-    public void notify_HeadUp(Intent intent, int smallIcon, int largeIcon,
-                              String ticker, String title, String content, int leftbtnicon, String lefttext, Intent leftIntent, int rightbtnicon, String righttext, Intent rightIntent) {
+    public void notify_HeadUp(PendingIntent pendingIntent, int smallIcon, int largeIcon,
+                              String ticker, String title, String content, int leftbtnicon, String lefttext, PendingIntent leftPendingIntent, int rightbtnicon, String righttext, PendingIntent rightPendingIntent, boolean sound, boolean vibrate, boolean lights) {
 
-        setCompatBuilder(intent, smallIcon, ticker, title, content, true);
+        setCompatBuilder(pendingIntent, smallIcon, ticker, title, content, sound, vibrate, lights);
         cBuilder.setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), largeIcon));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            PendingIntent leftPendIntent = PendingIntent.getActivity(mContext,
-                    requestCode, leftIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            PendingIntent rightPendIntent = PendingIntent.getActivity(mContext,
-                    requestCode, rightIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             cBuilder.addAction(leftbtnicon,
-                    lefttext, leftPendIntent);
+                    lefttext, leftPendingIntent);
             cBuilder.addAction(rightbtnicon,
-                    righttext, rightPendIntent);
+                    righttext, rightPendingIntent);
         } else {
             Toast.makeText(mContext, "版本低于Andriod5.0，无法体验HeadUp样式通知", Toast.LENGTH_SHORT).show();
         }
