@@ -1,4 +1,8 @@
 # NotifyDemo  
+
+
+**通知工具类，提供多达8种最常见的App通知的接口方法，包括淘宝，网易新闻，微信，环聊等等，用于快速生成需要的通知提示。**
+
 NotifyDemo Android App, require Android 4.0+, GPL v3 License  
 ![enter image description here](https://raw.githubusercontent.com/wenmingvs/WeiBo/master/baiduYun.png)  
 
@@ -6,7 +10,6 @@ NotifyDemo Android App, require Android 4.0+, GPL v3 License
   
 [Download Link ](http://pan.baidu.com/s/1jHiusgm)
 
-**通知工具类，提供多大8种最常见的App通知的接口方法，包括淘宝，网易新闻，微信，环聊等等，用于快速生成需要的通知提示。**
 
 
 
