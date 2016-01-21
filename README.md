@@ -26,7 +26,7 @@
 ----- 
 1. 淘宝样式：普通类型通知(单行)
 -----
-![enter image description here](http://ww1.sinaimg.cn/large/691cc151gw1f075f66z61g20dc0k0x6p.gif)
+![enter image description here](http://ww3.sinaimg.cn/large/691cc151gw1f0774vsy7xg20dc0k0x6p.gif)
 
 ``` java
     /**
@@ -52,7 +52,7 @@
 
 2. 网易新闻样式：普通类型通知(多行)
 -----
-![enter image description here](http://ww1.sinaimg.cn/mw690/691cc151gw1f075fbgjq5g20dc0k0u0y.gif)
+![enter image description here](http://ww2.sinaimg.cn/mw690/691cc151gw1f07752ahgrg20dc0k0u0y.gif)
 ``` java
     /**
      * 高仿网易新闻
@@ -78,7 +78,7 @@
 3. 微信消息样式： 消息列表通知(含双图标)
 -----
 
-![enter image description here](http://ww1.sinaimg.cn/mw690/691cc151gw1f075fhsdfhg20dc0k0hdu.gif)
+![enter image description here](http://ww4.sinaimg.cn/mw690/691cc151gw1f07757tlbrg20dc0k0hdu.gif)
 
 ``` java
    /**
@@ -115,7 +115,7 @@
 4. 系统截图通知样式： 含大图类型通知
 -----
 
-![enter image description here](http://ww3.sinaimg.cn/mw690/691cc151gw1f075g3azxgg20dc0k0b2c.gif)
+![enter image description here](http://ww2.sinaimg.cn/mw690/691cc151gw1f0775gxs2gg20dc0k0b2c.gif)
 
 ``` java
     /**
@@ -143,7 +143,7 @@
 5. 应用宝样式： 自定义视图通知
 -----
 
-![enter image description here](http://ww3.sinaimg.cn/mw690/691cc151gw1f075g6sfdeg20dc0k0u0x.gif)
+![enter image description here](http://ww3.sinaimg.cn/mw690/691cc151gw1f0775l59i1g20dc0k0u0x.gif)
 
 ``` java
     /**
@@ -181,7 +181,7 @@
 
 6. Android系统更新样式： 折叠式双按钮通知
 -----
-![enter image description here](http://ww4.sinaimg.cn/mw690/691cc151gw1f075gbftrgg20dc0k04qq.gif)
+![enter image description here](http://ww2.sinaimg.cn/mw690/691cc151gw1f0775pd4dkg20dc0k04qq.gif)
 ``` java
    /**
      * 高仿Android更新提醒样式
@@ -214,8 +214,7 @@
 7. Android系统下载样式： 进度条通知
 -----
 
-![enter image description here](http://ww1.sinaimg.cn/mw690/691cc151gw1f075gekoi8g20dc0k0hdt.gif)
-
+![enter image description here](http://ww2.sinaimg.cn/mw690/691cc151gw1f0775t3kt7g20dc0k0hdt.gif)
 ``` java
 
     /**
@@ -239,7 +238,7 @@
 
 8. Heads-up 样式： Android 5.0 新特性
 -----
-![enter image description here](http://ww3.sinaimg.cn/mw1024/691cc151gw1f075potdtug20dc0k0npe.gif)
+![enter image description here](http://ww4.sinaimg.cn/mw690/691cc151gw1f0775ybu5lg20dc0k0npe.gif)
 ``` java
 /**
      * Android 5。0 新特性：悬浮式通知
