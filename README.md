@@ -10,10 +10,9 @@ NotifyDemo Android App, require Android 4.0+, GPL v3 License
   
 [Download Link ](http://pan.baidu.com/s/1jHiusgm)
 
-八种通知类型的展示  ：
+八种通知类型的展示
 ------
-![enter image description here](%5Benter%20link%20description%20here%5D%28http://s1078.photobucket.com/component/Download-File?file=/albums/w492/wenmingvs/demo0_zpsr4ybln3g.gif%29)
-
+![enter image description here](http://ww1.sinaimg.cn/large/691cc151gw1f07gtdxy53g20bc0h01l1.gif)
 
 
 用法：
@@ -359,3 +358,4 @@ Gradle 构建
 相信不屈不挠的努力  
 相信战胜死亡的年轻  
 相信未来、热爱生命  
+
