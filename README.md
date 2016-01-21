@@ -5,9 +5,7 @@
 
 NotifyDemo Android App, require Android 4.0+, GPL v3 License  
 ![enter image description here](https://raw.githubusercontent.com/wenmingvs/WeiBo/master/baiduYun.png)  
-
 ![enter image description here](https://raw.githubusercontent.com/wenmingvs/NotifyUtil/master/qrcode.png)  
-  
 [Download Link ](http://pan.baidu.com/s/1jHiusgm)
 
 八种通知类型的展示
